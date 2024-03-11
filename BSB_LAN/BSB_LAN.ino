@@ -7805,7 +7805,6 @@ void dateTime(uint16_t* date, uint16_t* time) {
 
 }
   #endif
-#endif
 
 void startLoggingDevice() {
   Serial.print("LogDestination: ");
@@ -7840,11 +7839,12 @@ void startLoggingDevice() {
 #if (!defined(RX1) && !defined(TX1) && !defined(FORCE_SD_MMC_ON_NODEMCU))   // NodeMCU
       SPI.begin(SD_SCK, SD_MISO, SD_MOSI);
       SD.end();
-      if(!SD.begin(SD_CS)){
+      if(!SD.begin(SD_CS))
 #else                               // Olimex or Joy-It NodeMCU with SD_MMC
       SD_MMC.end();
-      if(!SD_MMC.begin("", true)){
+      if(!SD_MMC.begin("", true))
 #endif
+      {
         printToDebug(PSTR("SD card failed\r\n"));
       } else {
         printToDebug(PSTR("SD card mounted ok\r\n"));
@@ -7857,6 +7857,7 @@ void startLoggingDevice() {
     }
   #endif
 }
+#endif
 
 void createTemporaryAP () {
 #if defined (ESP32)
